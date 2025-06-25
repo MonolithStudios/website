@@ -1,103 +1,83 @@
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+import { Button } from "@/components/ui/button";
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+import Testimonials from "@/components/testimonials";
+import Header from "@/components/layout/header"
+import Services from "@/components/ui/services";
+
+const testimonialItems = [
+    {
+        quote: "Working with Monolith Studios was seamless. They translated our needs into a system that just works.",
+        author: "Julia, Ecom Director",
+        url: "https://example-julia-client.com",
+    },
+    {
+        quote: "It’s rare to find a team this sharp. Quick turnaround, great ideas, and clean delivery.",
+        author: "Thabo, Founder @ BizLaunch",
+        url: "https://example-bizlaunch.com",
+    },
+];
+
+export default function Home() {
+    return (
+        <main className="min-h-screen bg-[#F9F5F2] text-[#2f302a] px-6 md:px-24 py-16 space-y-20 font-base">
+
+            {/* Header */}
+            <Header/>
+
+            {/* Hero */}
+            <section className="w-full px-6 md:px-24 py-16">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-0">
+
+                    {/* Left: Title + Subtitle */}
+                    <div className="text-left max-w-xl space-y-6">
+                        <div className="md:text-8xl leading-tight font-black">
+                            <div>MONOLITH</div>
+                            <div>STUDIOS.</div>
+                        </div>
+
+                        <p className="text-lg font-base max-w-md">
+                            Monolith Studios is a leader in providing digital solutions to business problems.
+                        </p>
+                    </div>
+
+                    {/* Right: Logo */}
+                    <div className="shrink-0">
+                        <Image
+                            src="/hero-splash.svg"
+                            alt="Monolith Logo"
+                            width={500}
+                            height={500}
+                        />
+                    </div>
+
+                </div>
+            </section>
+
+            {/* Description */}
+            <Services/>
+
+            {/* Testimonials */}
+            {/* <Testimonials items={testimonialItems} /> */}
+
+            {/* Contact */}
+            <section id="contact" className="space-y-4">
+                <h2 className="text-5xl font-extrabold tracking-tight text-[#2f302a] text-center mx-auto">get in touch.</h2>
+                <p className="text-lg">We’d love to hear what you’re building.</p>
+                <div className="space-y-2">
+                    <p><strong>Email:</strong> <a href="mailto:contact@mlith.co.za" className="underline">contact@mlith.co.za</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:+27609524595" className="underline">+27 60 952 4595</a></p>
+                </div>
+                <Button className="mt-4 border-2 border-[#2f302a] bg-white shadow-[4px_4px_0_#2f302a] px-6 py-3">
+                    Let’s Collaborate
+                </Button>
+            </section>
+
+            {/* Footer */}
+            <footer className="text-sm text-center border-t-2 border-[#2f302a] pt-8 mt-16">
+                © {new Date().getFullYear()} Monolith Studios — All rights reserved.
+            </footer>
+        </main>
+    );
 }
