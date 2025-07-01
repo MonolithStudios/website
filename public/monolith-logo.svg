@@ -1,22 +1,30 @@
 <svg width="350" height="353" viewBox="0 0 350 353" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_20_2)">
-<rect y="128" width="256" height="256" rx="5" transform="rotate(-30 0 128)" fill="#FFF5E1"/>
-<rect x="2.73205" y="128.732" width="252" height="252" rx="3" transform="rotate(-30 2.73205 128.732)" stroke="black" stroke-width="4"/>
-</g>
-<path d="M79.1843 211.04C79.1843 211.04 61.065 179.763 47.2634 155.752C33.4617 131.74 66.1279 112.471 80.1086 136.788C94.0894 161.105 112.03 192.077 112.03 192.077" stroke="#697CED" stroke-width="25" stroke-linecap="round"/>
-<path d="M112.024 192.02C112.024 192.02 93.9044 160.742 80.1027 136.731C66.301 112.72 98.9672 93.4506 112.948 117.768C126.929 142.085 144.869 173.056 144.869 173.056" stroke="#697CED" stroke-width="25" stroke-linecap="round"/>
-<circle cx="195.131" cy="94.1147" r="42.5" transform="rotate(-30 195.131 94.1147)" stroke="#299990" stroke-width="25"/>
-<circle cx="255.152" cy="191.976" r="42.5" transform="rotate(-30 255.152 191.976)" stroke="#F4C639" stroke-width="25"/>
-<path d="M138.369 311.284C133.404 302.47 90.4723 232.693 101.362 235.855C112.252 239.018 186.693 276.385 197.375 277.217C208.057 278.049 162.714 206.824 160.429 201.753" stroke="#E84A87" stroke-width="25" stroke-linecap="round"/>
-<defs>
-<filter id="filter0_d_20_2" x="0.829285" y="1.82928" width="347.044" height="351.044" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="-1" dy="5"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_20_2"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_20_2" result="shape"/>
-</filter>
-</defs>
+    <g filter="url(#filter0_d_20_2)">
+        <rect y="128" width="256" height="256" rx="5" transform="rotate(-30 0 128)" fill="#FFF5E1"/>
+        <rect x="2.73205" y="128.732" width="252" height="252" rx="3" transform="rotate(-30 2.73205 128.732)"
+              stroke="black" stroke-width="4"/>
+    </g>
+    <path d="M79.1843 211.04C79.1843 211.04 61.065 179.763 47.2634 155.752C33.4617 131.74 66.1279 112.471 80.1086 136.788C94.0894 161.105 112.03 192.077 112.03 192.077"
+          stroke="#697CED" stroke-width="25" stroke-linecap="round"/>
+    <path d="M112.024 192.02C112.024 192.02 93.9044 160.742 80.1027 136.731C66.301 112.72 98.9672 93.4506 112.948 117.768C126.929 142.085 144.869 173.056 144.869 173.056"
+          stroke="#697CED" stroke-width="25" stroke-linecap="round"/>
+    <circle cx="195.131" cy="94.1147" r="42.5" transform="rotate(-30 195.131 94.1147)" stroke="#299990"
+            stroke-width="25"/>
+    <circle cx="255.152" cy="191.976" r="42.5" transform="rotate(-30 255.152 191.976)" stroke="#F4C639"
+            stroke-width="25"/>
+    <path d="M138.369 311.284C133.404 302.47 90.4723 232.693 101.362 235.855C112.252 239.018 186.693 276.385 197.375 277.217C208.057 278.049 162.714 206.824 160.429 201.753"
+          stroke="#E84A87" stroke-width="25" stroke-linecap="round"/>
+    <defs>
+        <filter id="filter0_d_20_2" x="0.829285" y="1.82928" width="347.044" height="351.044"
+                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                           result="hardAlpha"/>
+            <feOffset dx="-1" dy="5"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_20_2"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_20_2" result="shape"/>
+        </filter>
+    </defs>
 </svg>

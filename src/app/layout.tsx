@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito_Sans, League_Spartan } from 'next/font/google'
+import {League_Spartan, Nunito_Sans} from 'next/font/google'
 import "./globals.css";
 
 const nunitoSans = Nunito_Sans({
@@ -15,22 +15,23 @@ const leagueSpartan = League_Spartan({
 })
 
 export const metadata: Metadata = {
-  title: "Monolith Studios",
-  description: "Develop boldly",
+    title: "Monolith Studios",
+    description: "Develop boldly",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${leagueSpartan.variable} ${nunitoSans.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
+export default function RootLayout
+(
+    {
+       children,
+    }
+    : Readonly<{ children: React.ReactNode; }>
+)
+{
+    return (
+        <html lang="en">
+            <body className={`${leagueSpartan.variable} ${nunitoSans.variable} antialiased`}>
+                {children}
+            </body>
+        </html>
+    );
 }
