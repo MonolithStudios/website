@@ -39,30 +39,36 @@ export default function Home()
         <main className="min-h-screen bg-background text-foreground px-6 md:px-24 py-16 space-y-20 font-base">
             <Navbar/>
 
-            {/* Intro hero */}
+            {/* Intro Hero */}
             <section className="w-full px-6 md:px-24 py-16">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-0">
-                    <div className="text-left max-w-xl space-y-6">
-                        <div className="md:text-8xl leading-tight font-black">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
+
+                    {/* Left - Text */}
+                    <div className="text-center md:text-left max-w-xl space-y-6">
+                        <div className="text-5xl sm:text-6xl md:text-8xl leading-tight font-black">
                             <div>MONOLITH</div>
-                            <div>STUDIOS.</div>
+                            <div>STUDIOS</div>
                         </div>
 
-                        <p className="text-lg font-base max-w-md">
+                        <p className="text-base sm:text-lg font-normal max-w-md mx-auto md:mx-0">
                             Monolith Studios is a leader in providing digital solutions to business problems.
                         </p>
 
-                        <Button className="rounded-lg" asChild>
-                            <Link href="#contact">Contact us</Link>
-                        </Button>
+                        <div>
+                            <Button className="rounded-lg" asChild>
+                                <Link href="#contact">Contact us</Link>
+                            </Button>
+                        </div>
                     </div>
 
-                    <div className="shrink-0">
+                    {/* Right - Image */}
+                    <div className="w-full md:w-auto flex justify-center">
                         <Image
                             src="/hero-splash.svg"
                             alt="Monolith Studios"
                             width={500}
                             height={500}
+                            className="max-w-[80%] md:max-w-none"
                         />
                     </div>
                 </div>

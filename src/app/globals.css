@@ -5,10 +5,10 @@
 
 :root {
     --background: oklch(0.9724 0.0059 59.65);
-    --foreground: oklch(0.3061 0.0106 114.71);
-    --main-foreground: oklch(0.3061 0.0106 114.71);
+    --foreground: oklch(0.2864 0.0049 44.33);
+    --main-foreground: var(--foreground);
     --main: oklch(0.997 0 0);
-    --border: oklch(0.3061 0.0106 114.71);
+    --border: var(--foreground);;
     --ring: oklch(0% 0 0);
     --overlay: oklch(0% 0 0 / 0.8);
     --shadow: 4px 4px 0px 0px var(--border);
