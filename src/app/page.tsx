@@ -29,7 +29,7 @@ const features = [
         imageAlt: "Consulting",
         imageSize: {width: 140, height: 140},
         title: "Consulting",
-        description: "Need assistance navigating the digital world? We've got you"
+        description: "Need assistance navigating the digital world? We've got you!"
     }
 ]
 
