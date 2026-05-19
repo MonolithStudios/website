@@ -1,0 +1,35 @@
+:root {
+  --color-orange: #fe5944;
+  --color-blue: #03a6eb;
+  --color-green: #4c6d5b;
+  --color-purple: #474f9c;
+  --color-beige: #e3cbc7;
+
+  --font-major: 'League Spartan', sans-serif;
+  --font-minor: 'DM Sans', sans-serif;
+
+  --navbar-height: 76px;
+  --navbar-top: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-minor);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: var(--font-minor);
+}
