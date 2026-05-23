@@ -3,56 +3,139 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const canvasEl = ref(null)
 let animId = null
-let t = 0
-let W = 0, H = 0, diag = 0
+let device = null
+let pipeline = null
+let uniformBuffer = null
+let bindGroup = null
+let gpuCtx = null
+let W = 0, H = 0
+let startTime = 0
 
-function wave(x) {
-  return (
-    22 * Math.sin((2 * Math.PI * x) / 210 + 0.70 * t) +
-    14 * Math.sin((2 * Math.PI * x) / 370 + 0.42 * t) +
-     9 * Math.sin((2 * Math.PI * x) / 110 + 1.15 * t) +
-     6 * Math.sin((2 * Math.PI * x) / 530 + 0.28 * t)
-  )
+const uData = new Float32Array(4) // [time, width, height, pad]
+
+const WGSL = /* wgsl */`
+struct U {
+  time   : f32,
+  width  : f32,
+  height : f32,
+  _pad   : f32,
+}
+@group(0) @binding(0) var<uniform> u: U;
+
+@vertex
+fn vs(@builtin(vertex_index) vi: u32) -> @builtin(position) vec4f {
+  var pos = array<vec2f, 3>(
+    vec2f(-1.0, -1.0),
+    vec2f( 3.0, -1.0),
+    vec2f(-1.0,  3.0),
+  );
+  return vec4f(pos[vi], 0.0, 1.0);
+}
+
+@fragment
+fn fs(@builtin(position) coord: vec4f) -> @location(0) vec4f {
+  let dx = coord.x - u.width  * 0.5;
+  let dy = coord.y - u.height * 0.5;
+
+  // Rotate screen coords -45° into wave space
+  let s = 0.7071067811865476;
+  let rx = (dx + dy) * s;
+  let ry = (dy - dx) * s;
+
+  let tau = 6.283185307179586;
+  let wave =
+    22.0 * sin(tau * rx / 210.0) +
+    14.0 * sin(tau * rx / 370.0) +
+     9.0 * sin(tau * rx / 110.0) +
+     6.0 * sin(tau * rx / 530.0);
+
+  // Scroll lines perpendicular to their direction (seamless — period 32)
+  let scroll = u.time * 24.0;
+  let d = fract((ry - scroll - wave) / 32.0);
+  let dist = min(d, 1.0 - d) * 32.0;
+
+  // Anti-aliased line, 0.5 opacity — output premultiplied alpha
+  let a = 0.5 * (1.0 - smoothstep(0.0, 0.9, dist));
+  return vec4f(0.996 * a, 0.349 * a, 0.267 * a, a);
+}
+`
+
+async function initGPU() {
+  if (!navigator.gpu) return false
+  const adapter = await navigator.gpu.requestAdapter()
+  if (!adapter) return false
+  device = await adapter.requestDevice()
+
+  const canvas = canvasEl.value
+  gpuCtx = canvas.getContext('webgpu')
+  const fmt = navigator.gpu.getPreferredCanvasFormat()
+  gpuCtx.configure({ device, format: fmt, alphaMode: 'premultiplied' })
+
+  uniformBuffer = device.createBuffer({
+    size: 16,
+    usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+  })
+
+  const shader = device.createShaderModule({ code: WGSL })
+  const bgl = device.createBindGroupLayout({
+    entries: [{ binding: 0, visibility: GPUShaderStage.FRAGMENT, buffer: {} }],
+  })
+
+  pipeline = device.createRenderPipeline({
+    layout: device.createPipelineLayout({ bindGroupLayouts: [bgl] }),
+    vertex:   { module: shader, entryPoint: 'vs' },
+    fragment: {
+      module: shader, entryPoint: 'fs',
+      targets: [{
+        format: fmt,
+        blend: {
+          color: { srcFactor: 'one', dstFactor: 'one-minus-src-alpha', operation: 'add' },
+          alpha: { srcFactor: 'one', dstFactor: 'one-minus-src-alpha', operation: 'add' },
+        },
+      }],
+    },
+    primitive: { topology: 'triangle-list' },
+  })
+
+  bindGroup = device.createBindGroup({
+    layout: bgl,
+    entries: [{ binding: 0, resource: { buffer: uniformBuffer } }],
+  })
+
+  return true
 }
 
 function resize() {
   const canvas = canvasEl.value
   W = canvas.offsetWidth
   H = canvas.offsetHeight
-  canvas.width = W
+  canvas.width  = W
   canvas.height = H
-  diag = Math.sqrt(W * W + H * H)
 }
 
-function draw() {
-  const canvas = canvasEl.value
-  const ctx = canvas.getContext('2d')
+function draw(ts) {
+  if (!device) { animId = requestAnimationFrame(draw); return }
 
-  ctx.clearRect(0, 0, W, H)
-  ctx.save()
-  ctx.translate(W / 2, H / 2)
-  ctx.rotate(Math.PI / 4)
+  uData[0] = (ts - startTime) / 1000
+  uData[1] = W
+  uData[2] = H
+  device.queue.writeBuffer(uniformBuffer, 0, uData)
 
-  ctx.strokeStyle = 'rgba(254, 89, 68, 0.5)'
-  ctx.lineWidth = 1
+  const enc  = device.createCommandEncoder()
+  const pass = enc.beginRenderPass({
+    colorAttachments: [{
+      view:       gpuCtx.getCurrentTexture().createView(),
+      clearValue: { r: 0, g: 0, b: 0, a: 0 },
+      loadOp:     'clear',
+      storeOp:    'store',
+    }],
+  })
+  pass.setPipeline(pipeline)
+  pass.setBindGroup(0, bindGroup)
+  pass.draw(3)
+  pass.end()
+  device.queue.submit([enc.finish()])
 
-  const spacing = 32
-  const start = -Math.ceil(diag / spacing) * spacing
-
-  for (let offset = start; offset <= diag; offset += spacing) {
-    ctx.beginPath()
-    let first = true
-    for (let x = -diag; x <= diag; x += 4) {
-      const y = offset + wave(x)
-      if (first) { ctx.moveTo(x, y); first = false }
-      else ctx.lineTo(x, y)
-    }
-    ctx.stroke()
-  }
-
-  ctx.restore()
-
-  t += 0.016
   animId = requestAnimationFrame(draw)
 }
 
@@ -60,15 +143,19 @@ function scrollToContact() {
   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
 }
 
-onMounted(() => {
+onMounted(async () => {
   resize()
   window.addEventListener('resize', resize)
+  const ok = await initGPU()
+  if (!ok) return
+  startTime = performance.now()
   animId = requestAnimationFrame(draw)
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', resize)
   cancelAnimationFrame(animId)
+  device?.destroy()
 })
 </script>
 
