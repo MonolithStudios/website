@@ -43,15 +43,15 @@ fn fs(@builtin(position) coord: vec4f) -> @location(0) vec4f {
   let ry = (dy - dx) * s;
 
   let tau = 6.283185307179586;
-  let wave =
-    22.0 * sin(tau * rx / 210.0) +
-    14.0 * sin(tau * rx / 370.0) +
-     9.0 * sin(tau * rx / 110.0) +
-     6.0 * sin(tau * rx / 530.0);
-
-  // Scroll lines perpendicular to their direction (seamless — period 32)
+  // Scroll parallel to lines (bottom-right → top-left) by shifting rx
   let scroll = u.time * 24.0;
-  let d = fract((ry - scroll - wave) / 32.0);
+  let wave =
+    22.0 * sin(tau * (rx + scroll) / 210.0) +
+    14.0 * sin(tau * (rx + scroll) / 370.0) +
+     9.0 * sin(tau * (rx + scroll) / 110.0) +
+     6.0 * sin(tau * (rx + scroll) / 530.0);
+
+  let d = fract((ry - wave) / 32.0);
   let dist = min(d, 1.0 - d) * 32.0;
 
   // Anti-aliased line, 0.5 opacity — output premultiplied alpha
