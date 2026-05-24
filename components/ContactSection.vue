@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import emailjs from '@emailjs/browser'
+
+// emailjs is dynamically imported on submit to avoid SSR issues
+// (the @emailjs/browser package uses browser globals at module level)
 
 const name = ref('')
 const email = ref('')
@@ -30,6 +32,7 @@ async function handleSubmit() {
   error.value = ''
 
   try {
+    const { default: emailjs } = await import('@emailjs/browser')
     await emailjs.send(
       import.meta.env.VITE_EMAILJS_SERVICE_ID,
       import.meta.env.VITE_EMAILJS_TEMPLATE_ID,

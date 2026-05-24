@@ -1,5 +1,5 @@
 <script setup>
-import logoSrc from '../assets/logo.svg'
+import logoSrc from '~/assets/logo.svg'
 
 const year = new Date().getFullYear()
 </script>

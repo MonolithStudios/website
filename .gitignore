@@ -35,6 +35,12 @@ coverage
 # Vitest
 __screenshots__/
 
+# Nuxt
+.nuxt
+.output
+.data
+.cache
+
 # Vite
 *.timestamp-*-*.mjs
 

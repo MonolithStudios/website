@@ -1,0 +1,10 @@
+/* Self-hosted variable fonts — eliminates render-blocking Google Fonts request */
+@import '@fontsource-variable/league-spartan';
+@import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/dm-sans/wght-italic.css';
+
+@import './base.css';
+
+#app {
+  min-height: 100vh;
+}

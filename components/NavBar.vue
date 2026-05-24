@@ -1,5 +1,5 @@
 <script setup>
-import logoSrc from '../assets/logo.svg'
+import logoSrc from '~/assets/logo.svg'
 
 function scrollToContact() {
   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
