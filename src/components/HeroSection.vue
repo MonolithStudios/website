@@ -166,8 +166,8 @@ onUnmounted(() => {
     <div class="hero-inner">
 
       <div class="hero-text">
-        <h1 class="hero-headline">Up your<br>website game</h1>
-        <p class="hero-sub">Let us build a beautiful, performant website to elevate your business.</p>
+        <h1 class="hero-headline">Beautiful Websites<br>for Your Business</h1>
+        <p class="hero-sub">We design and build fast, modern websites for businesses in Durban and across South Africa.</p>
         <button class="btn-get-started" @click="scrollToContact">
           Get Started
         </button>
