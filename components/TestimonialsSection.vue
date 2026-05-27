@@ -1,15 +1,16 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import laeAvatar from '~/assets/testimonials/lae.webp'
 
 const customers = [
   {
     name: 'Leigh-Anne Edwards',
     role: "Ingonyama Rest",
-    avatar: 'https://placehold.co/80x80/fe5944/ffffff?text=LE',
+    avatar: laeAvatar,
     screenshot: 'https://placehold.co/600x380/fef0ee/fe5944?text=ingonyama-rest.co.za',
     siteUrl: 'https://ingonyama-rest.co.za',
     review:
-      'Monolith Studios completely transformed our online presence. Within weeks of launching we were getting new orders through the site every day. The design is clean, modern, and perfectly captures our brand.',
+      'Monolith Studios captured the feeling of my holiday home and created a website both functional and beautiful, transforming my online presence.',
   },
 ]
 
